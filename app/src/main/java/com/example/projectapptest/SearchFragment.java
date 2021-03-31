@@ -35,7 +35,7 @@ public class SearchFragment extends Fragment {
         btnCheck = view.findViewById(R.id.btnCheck);
 
 
-        CustomModelDownloadConditions conditions = new CustomModelDownloadConditions.Builder().requireWifi().build();
+        /*CustomModelDownloadConditions conditions = new CustomModelDownloadConditions.Builder().requireWifi().build();
         FirebaseModelDownloader.getInstance().getModel("NewsCheckModel",
                 DownloadType.LOCAL_MODEL_UPDATE_IN_BACKGROUND, conditions)
                 .addOnSuccessListener(new OnSuccessListener<CustomModel>() {
@@ -46,7 +46,7 @@ public class SearchFragment extends Fragment {
                             Interpreter interpreter = new Interpreter(modelFile);
                         }
                     }
-                });
+                });*/
         
         
          return view;
