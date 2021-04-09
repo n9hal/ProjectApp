@@ -20,6 +20,10 @@ public class Articles {
     @Expose
     private String description ;
 
+    @SerializedName("url")
+    @Expose
+    private String url;
+
     @SerializedName("urlToImage")
     @Expose
     private String urlToImage;
@@ -63,4 +67,13 @@ public class Articles {
     public void setUrlToImage(String urlToImage) {
         this.urlToImage = urlToImage;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
 }
