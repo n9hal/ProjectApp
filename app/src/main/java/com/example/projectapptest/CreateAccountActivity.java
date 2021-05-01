@@ -60,7 +60,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     public void CreateAccount(View view){
         final String name= edName.getText().toString();
         final String email = edCrEmail.getText().toString().trim();
-        String password = edCrPassword.getText().toString().trim();
+        final String password = edCrPassword.getText().toString().trim();
         String password2= edRePassword.getText().toString().trim();
         final String phoneNo = edPhone.getText().toString();
 
@@ -93,13 +93,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     Users.put("Name",name);
                     Users.put("email",email);
                     Users.put("Phone_No",phoneNo);
-                    docRef.set(Users).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("TAG","OnSuccess : User Profile is created for " + userID);
-                        }
-                    });
-
+                    Users.put("Password",password);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
                 else {

@@ -15,15 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.modeldownloader.CustomModel;
 import com.google.firebase.ml.modeldownloader.CustomModelDownloadConditions;
@@ -32,32 +23,21 @@ import com.google.firebase.ml.modeldownloader.FirebaseModelDownloader;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.tensorflow.lite.Interpreter;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 
 public class SearchFragment extends Fragment {
     EditText edCheck;
     TextView txtResult,txtHead;
     Button btnCheck;
-    Interpreter interpreter;
-    RequestQueue requestQueue;
 
     @Nullable
     @Override
@@ -75,10 +55,9 @@ public class SearchFragment extends Fragment {
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = edCheck.getText().toString().trim();
-                String data = "{" + "\"url\"" + ": \"" + url + "\"" + "}";
-                submit(data);
-                getResult();
+                String url = edCheck.getText().toString();
+                //Log.d("myapp","Url is "+ url);
+                CheckNews(url);
 
             }
         });
@@ -108,63 +87,45 @@ public class SearchFragment extends Fragment {
         });*/
         return view;
     }
-    public void submit(String data){
-        final String savedata = data;
-        //String apiUrl= "http://192.168.0.107:5000/json";
-        requestQueue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.107:5000/predict", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response){
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                } catch (JSONException e) {
-                    Toast.makeText(getContext(),"Server error",Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+    public void CheckNews(String url){
 
-            }
-        })
-        {
-            @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
-            }
+        /*String inputNews = edCheck.getText().toString();
+        int bufferSize = 1000* Float.SIZE;
+        ByteBuffer modelOutput =ByteBuffer.allocateDirect(bufferSize).order(ByteOrder.nativeOrder());
+        interpreter.run(inputNews,modelOutput);*/
 
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                try {
-                    return savedata==null?null:savedata.getBytes("utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    return null;
-                }
-            }
-        };
-        requestQueue.add(stringRequest);
-    }
-    public void getResult(){
-        OkHttpClient okHttpClient = new OkHttpClient();
-        okhttp3.Request request = new okhttp3.Request.Builder().url("http://192.168.0.107:5000/predict").build();
+
+        String savedata = url;
+        String apiUrl= "http://192.168.0.109:5000/predict";
+        OkHttpClient okHttpClient =new OkHttpClient();
+        RequestBody body= new FormBody.Builder().add("url",savedata).build();
+        okhttp3.Request request = new okhttp3.Request.Builder().url(apiUrl).post(body).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Toast.makeText(getContext(),"Server Problem",Toast.LENGTH_LONG).show();
+            public void onFailure(@NotNull Call call, @NotNull final IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(),"Error:"+ e,Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-
             @Override
-            public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
-                    txtResult.setText(response.body().string());
+            public void onResponse(@NotNull Call call, @NotNull final okhttp3.Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            txtResult.setText("News is "+response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
             }
         });
 
-
     }
-    /*public void checkNews(){
-        String inputNews = edCheck.getText().toString();
-        int bufferSize = 1000* Float.SIZE;
-        ByteBuffer modelOutput =ByteBuffer.allocateDirect(bufferSize).order(ByteOrder.nativeOrder());
-        interpreter.run(inputNews,modelOutput);
-    }*/
+
 }

@@ -14,15 +14,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/edCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginTop="304dp"
         android:hint="Paste news URL here"
         android:padding="10dp"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,11 +43,13 @@
         android:onClick="newsCheck"/>
 
     <TextView
+        android:id="@+id/txtResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtResult"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnCheck"
         app:layout_constraintStart_toStartOf="@+id/btnCheck"
-        app:layout_constraintTop_toBottomOf="@+id/btnCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCheck"
+        app:layout_constraintVertical_bias="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
