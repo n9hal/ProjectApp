@@ -153,7 +153,7 @@
         android:layout_height="65dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="sans-serif-condensed-medium"
         android:hint="Enter Phone Number"
         android:inputType="phone"
         android:textSize="22sp"

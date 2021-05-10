@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.firestore.proto.TargetGlobal;
 
 import java.util.HashMap;
@@ -64,7 +65,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password2= edRePassword.getText().toString().trim();
         final String phoneNo = edPhone.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(phoneNo)) {
             edCrEmail.setError("Email Required!");
             return;
         }
@@ -81,19 +82,18 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
 
         progressBar.setVisibility(View.VISIBLE);
-
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(CreateAccountActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
-                    final String userID= mAuth.getCurrentUser().getUid();
+                    String userID= mAuth.getCurrentUser().getUid();
                     DocumentReference  docRef= fstore.collection("Users").document(userID);
                     Map<String,Object> Users = new HashMap<>();
                     Users.put("Name",name);
                     Users.put("email",email);
                     Users.put("Phone_No",phoneNo);
-                    Users.put("Password",password);
+                    docRef.set(Users);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
                 else {

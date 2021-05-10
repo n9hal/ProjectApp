@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                     else {
-                        Toast.makeText(LoginActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "You have entered an invalid email or password", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -77,8 +77,8 @@ public class LoginActivity extends AppCompatActivity {
     public void CreateAccount(View view){
         startActivity(new Intent(LoginActivity.this,CreateAccountActivity.class));
     }
-    //Forgot Password Interface
-    /*public void ForgotPass(){
-        startActivity(new Intent(getApplicationContext(),));
-    }*/
+
+    public void forgotPass(View view){
+        startActivity(new Intent(LoginActivity.this,forgot_Password.class));
+    }
 }

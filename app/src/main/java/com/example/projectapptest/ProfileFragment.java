@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,8 @@ public class ProfileFragment extends Fragment {
     Button btnLogOut;
     FirebaseAuth fAuth;
     TextView txtName,tvEmail,tvPhone;
+    ImageView iconmail,iconPhone,iconProfile;
+    ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -38,8 +42,18 @@ public class ProfileFragment extends Fragment {
         txtName =getActivity().findViewById(R.id.txtName);
         tvEmail =getActivity().findViewById(R.id.tvEmail);
         tvPhone =getActivity().findViewById(R.id.tvPhone);
-
+        progressBar = getActivity().findViewById(R.id.progressBar4);
+        iconmail = getActivity().findViewById(R.id.iconMail);
+        iconPhone = getActivity().findViewById(R.id.iconPhone);
+        iconProfile = getActivity().findViewById(R.id.iconProfile);
         btnLogOut = getActivity().findViewById(R.id.btnLogOut);
+
+        progressBar.setVisibility(View.VISIBLE);
+        iconmail.setVisibility(View.INVISIBLE);
+        iconPhone.setVisibility(View.INVISIBLE);
+        iconProfile.setVisibility(View.INVISIBLE);
+
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +83,10 @@ public class ProfileFragment extends Fragment {
                     txtName.setText(name);
                     tvEmail.setText(email);
                     tvPhone.setText(phone_no);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    iconmail.setVisibility(View.VISIBLE);
+                    iconPhone.setVisibility(View.VISIBLE);
+                    iconProfile.setVisibility(View.VISIBLE);
                 }
             }
         });
