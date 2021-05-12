@@ -1,8 +1,6 @@
 package com.example.projectapptest;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.ml.modeldownloader.CustomModel;
-import com.google.firebase.ml.modeldownloader.CustomModelDownloadConditions;
-import com.google.firebase.ml.modeldownloader.DownloadType;
-import com.google.firebase.ml.modeldownloader.FirebaseModelDownloader;
-import com.google.gson.JsonObject;
-
 import org.jetbrains.annotations.NotNull;
-import org.tensorflow.lite.Interpreter;
 
 import java.io.IOException;
 
@@ -56,45 +46,13 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = edCheck.getText().toString();
-                //Log.d("myapp","Url is "+ url);
                 CheckNews(url);
 
             }
         });
-
-
-                //In-built Check (Tensorflow lite model)
-        /*CustomModelDownloadConditions conditions = new CustomModelDownloadConditions.Builder().requireWifi().build();
-        FirebaseModelDownloader.getInstance().getModel("NewsCheckModel",
-                DownloadType.LOCAL_MODEL_UPDATE_IN_BACKGROUND, conditions)
-                .addOnSuccessListener(new OnSuccessListener<CustomModel>() {
-                    @Override
-                    public void onSuccess(CustomModel customModel) {
-                        File modelFile = customModel.getFile();
-                        if (modelFile != null) {
-                            interpreter = new Interpreter(modelFile);
-                        }
-                    }
-                });
-        btnCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                checkNews();
-
-
-            }
-        });*/
         return view;
     }
     public void CheckNews(String url){
-
-        /*String inputNews = edCheck.getText().toString();
-        int bufferSize = 1000* Float.SIZE;
-        ByteBuffer modelOutput =ByteBuffer.allocateDirect(bufferSize).order(ByteOrder.nativeOrder());
-        interpreter.run(inputNews,modelOutput);*/
-
-
         String savedata = url;
         String apiUrl= "http://192.168.0.109:5000/predict";
         OkHttpClient okHttpClient =new OkHttpClient();
