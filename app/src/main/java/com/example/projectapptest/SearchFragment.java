@@ -26,7 +26,7 @@ import okhttp3.RequestBody;
 
 public class SearchFragment extends Fragment {
     EditText edCheck;
-    TextView txtResult,txtHead;
+    TextView txtResult;
     Button btnCheck;
 
     @Nullable
@@ -38,7 +38,6 @@ public class SearchFragment extends Fragment {
         edCheck = view.findViewById(R.id.edCheck);
         btnCheck = view.findViewById(R.id.btnCheck);
         txtResult = view.findViewById(R.id.txtResult);
-        txtHead = view.findViewById(R.id.txtHead3);
 
         //Flask api
 
