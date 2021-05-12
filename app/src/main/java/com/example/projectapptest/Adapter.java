@@ -24,9 +24,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static androidx.core.content.ContextCompat.startActivities;
-import static androidx.core.content.ContextCompat.startActivity;
-
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     Context context;
     List<Articles> articles;
@@ -125,7 +122,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         TextView txtTitle, txtSource;
         ImageView imageView,conMenu;
         CardView cardView;
-        PopupMenu popupMenu;
         @SuppressLint("ResourceType")
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
