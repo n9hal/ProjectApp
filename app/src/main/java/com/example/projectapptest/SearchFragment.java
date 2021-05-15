@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class SearchFragment extends Fragment {
     EditText edCheck;
     TextView txtResult;
     Button btnCheck;
+    ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -38,6 +40,7 @@ public class SearchFragment extends Fragment {
         edCheck = view.findViewById(R.id.edCheck);
         btnCheck = view.findViewById(R.id.btnCheck);
         txtResult = view.findViewById(R.id.txtResult);
+        progressBar = view.findViewById(R.id.progressBar5);
 
         //Flask api
 
@@ -45,6 +48,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = edCheck.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
                 CheckNews(url);
 
             }
@@ -77,6 +81,7 @@ public class SearchFragment extends Fragment {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
 

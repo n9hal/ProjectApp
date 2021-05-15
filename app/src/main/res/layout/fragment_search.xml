@@ -18,9 +18,9 @@
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.368" />
 
     <Button
         android:id="@+id/btnCheck"
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/edCheck"
         app:layout_constraintTop_toBottomOf="@+id/edCheck"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <TextView
         android:id="@+id/txtResult"
@@ -44,5 +44,16 @@
         app:layout_constraintEnd_toEndOf="@+id/btnCheck"
         app:layout_constraintStart_toStartOf="@+id/btnCheck"
         app:layout_constraintTop_toBottomOf="@+id/btnCheck"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.099" />
+
+    <ProgressBar
+        android:id="@+id/progressBar5"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/txtResult"
+        app:layout_constraintEnd_toEndOf="@+id/txtResult"
+        app:layout_constraintStart_toStartOf="@+id/txtResult"
+        app:layout_constraintTop_toTopOf="@+id/txtResult" />
 </androidx.constraintlayout.widget.ConstraintLayout>
